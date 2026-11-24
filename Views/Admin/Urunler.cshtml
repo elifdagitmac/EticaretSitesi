@@ -1,0 +1,46 @@
+@model List<Urun>
+@{
+    ViewData["Title"] = "Ürün Yönetimi";
+}
+
+<div class="d-flex justify-content-between mb-3">
+    <h3 class="tm-baslik">Ürün Yönetimi</h3>
+    <a asp-action="UrunEkle" class="btn btn-primary">+ Ürün Ekle</a>
+</div>
+
+<div class="tm-kutu p-0 overflow-hidden mb-3"><table class="table mb-0 table-striped align-middle">
+    <thead>
+        <tr><th>#</th><th>Ad</th><th>Fiyat</th><th>Stok</th><th>Durum</th><th></th></tr>
+    </thead>
+    <tbody>
+        @foreach (var u in Model)
+        {
+            <tr>
+                <td>@u.Id</td>
+                <td>@u.Ad</td>
+                <td>@u.Fiyat.ToString("F2") ₺</td>
+                <td>@u.Stok</td>
+                <td>
+                    @if (u.SatistaMi)
+                    {
+                        <span class="badge bg-success">Satışta</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-secondary">Satışta değil</span>
+                    }
+                </td>
+                <td class="text-end">
+                    <a asp-action="UrunDuzenle" asp-route-id="@u.Id" class="btn btn-sm btn-outline-primary">Düzenle</a>
+                    <form asp-action="SatisDurumu" asp-route-id="@u.Id" method="post" class="d-inline">
+                        <button class="btn btn-sm btn-outline-warning">@(u.SatistaMi ? "Satıştan Kaldır" : "Satışa Al")</button>
+                    </form>
+                    <form asp-action="UrunSil" asp-route-id="@u.Id" method="post" class="d-inline"
+                          onsubmit="return confirm('Ürün silinsin mi?')">
+                        <button class="btn btn-sm btn-outline-danger">Sil</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table></div>

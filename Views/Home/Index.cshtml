@@ -1,0 +1,93 @@
+@model List<Urun>
+@{
+    ViewData["Title"] = "Ürünler";
+    var ara = ViewBag.Ara as string;
+    var baslik = string.IsNullOrWhiteSpace(ara) ? "Tüm Ürünler" : $"\"{ara}\" için sonuçlar";
+}
+
+<section class="tm-hero mb-5">
+    <h1>Teknolojide aradığın her şey</h1>
+    <p class="mb-4">Mouse'tan klavyeye, kablodan aksesuara. Uygun fiyat, hızlı teslimat.</p>
+
+    <form method="get" class="tm-arama d-flex mb-3">
+        <span class="d-flex align-items-center px-2 text-secondary"><i class="bi bi-search"></i></span>
+        <input name="ara" value="@ara" class="form-control" placeholder="Ürün ara..." />
+        <button class="btn btn-primary px-4">Ara</button>
+    </form>
+
+    <div class="d-flex flex-wrap gap-4 tm-ozellik">
+        <span><i class="bi bi-truck"></i> Hızlı kargo</span>
+        <span><i class="bi bi-shield-check"></i> Güvenli ödeme</span>
+        <span><i class="bi bi-arrow-repeat"></i> Kolay iade</span>
+    </div>
+</section>
+
+<div class="d-flex justify-content-between align-items-end mb-3">
+    <h3 class="tm-baslik mb-0">
+        @baslik
+    </h3>
+    <span class="text-secondary small">@Model.Count ürün</span>
+</div>
+
+@if (!Model.Any())
+{
+    <div class="tm-kutu text-center text-secondary">
+        <i class="bi bi-emoji-frown fs-1"></i>
+        <p class="mt-2 mb-0">Ürün bulunamadı.</p>
+    </div>
+}
+
+<div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4">
+    @foreach (var u in Model)
+    {
+        <div class="col">
+            <div class="tm-kart h-100 d-flex flex-column">
+                <div class="tm-kart-resim">
+                    @if (!string.IsNullOrWhiteSpace(u.ResimUrl))
+                    {
+                        <img src="@u.ResimUrl" alt="@u.Ad" />
+                    }
+                    else
+                    {
+                        <i class="bi bi-cpu"></i>
+                    }
+                </div>
+                <div class="p-3 flex-grow-1">
+                    <h5 class="fw-semibold mb-1">@u.Ad</h5>
+                    <p class="text-secondary small mb-3">@u.Aciklama</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="tm-fiyat">@u.Fiyat.ToString("N2") ₺</span>
+                        @if (u.Stok <= 0)
+                        {
+                            <span class="badge rounded-pill text-bg-secondary tm-stok">Tükendi</span>
+                        }
+                        else if (u.Stok <= 5)
+                        {
+                            <span class="badge rounded-pill text-bg-warning tm-stok">Son @u.Stok adet</span>
+                        }
+                        else
+                        {
+                            <span class="badge rounded-pill text-bg-light border tm-stok">Stokta</span>
+                        }
+                    </div>
+                </div>
+                <div class="p-3 pt-0">
+                    @if (u.Stok > 0 && User.Identity?.IsAuthenticated == true)
+                    {
+                        <form asp-controller="Sepet" asp-action="Ekle" method="post" class="d-flex gap-2">
+                            <input type="hidden" name="urunId" value="@u.Id" />
+                            <input type="number" name="adet" value="1" min="1" max="@u.Stok" class="form-control" style="width:80px" />
+                            <button class="btn btn-gradient flex-grow-1"><i class="bi bi-cart-plus"></i> Sepete Ekle</button>
+                        </form>
+                    }
+                    else if (u.Stok > 0)
+                    {
+                        <a asp-controller="Account" asp-action="Giris" class="btn btn-outline-primary w-100">
+                            <i class="bi bi-lock"></i> Satın almak için giriş yap
+                        </a>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,28 @@
+@{
+    ViewData["Title"] = "Giriş";
+}
+<div class="tm-auth tm-kutu">
+    <div class="ikon"><i class="bi bi-person"></i></div>
+    <h3 class="tm-baslik">Tekrar hoş geldin</h3>
+    <p class="text-secondary">Hesabına giriş yap.</p>
+
+    @if (ViewBag.Hata != null)
+    {
+        <div class="alert alert-danger">@ViewBag.Hata</div>
+    }
+    <form method="post">
+        <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
+        <div class="mb-3">
+            <label class="form-label">E-posta</label>
+            <input name="email" type="email" class="form-control" placeholder="ornek@mail.com" required />
+        </div>
+        <div class="mb-4">
+            <label class="form-label">Şifre</label>
+            <input name="sifre" type="password" class="form-control" required />
+        </div>
+        <button class="btn btn-gradient w-100 py-2">Giriş Yap</button>
+    </form>
+    <p class="text-center text-secondary small mt-3 mb-0">
+        Hesabın yok mu? <a asp-action="Kayit">Kayıt ol</a>
+    </p>
+</div>

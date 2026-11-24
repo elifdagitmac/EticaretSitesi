@@ -1,0 +1,13 @@
+# Derleme çıktıları
+bin/
+obj/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# Veritabanı (ilk çalıştırmada otomatik oluşur)
+*.db
+*.db-shm
+*.db-wal

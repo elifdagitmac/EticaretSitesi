@@ -1,0 +1,44 @@
+@model List<Kullanici>
+@{
+    ViewData["Title"] = "Kullanıcılar";
+}
+
+<h3 class="tm-baslik">Kullanıcı Yönetimi</h3>
+
+<div class="tm-kutu p-0 overflow-hidden mb-3"><table class="table mb-0 table-striped align-middle">
+    <thead>
+        <tr><th>#</th><th>Ad Soyad</th><th>E-posta</th><th>Rol</th><th>Onay</th><th></th></tr>
+    </thead>
+    <tbody>
+        @foreach (var k in Model)
+        {
+            <tr>
+                <td>@k.Id</td>
+                <td>@k.AdSoyad</td>
+                <td>@k.Email</td>
+                <td>@k.Rol</td>
+                <td>
+                    @if (k.Onayli)
+                    {
+                        <span class="badge bg-success">Onaylı</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-warning text-dark">Onay bekliyor</span>
+                    }
+                </td>
+                <td class="text-end">
+                    @if (k.Id.ToString() != User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value)
+                    {
+                        <form asp-action="OnayDegistir" asp-route-id="@k.Id" method="post" class="d-inline">
+                            <button class="btn btn-sm btn-outline-success">@(k.Onayli ? "Onayı Kaldır" : "Onayla")</button>
+                        </form>
+                        <form asp-action="RolDegistir" asp-route-id="@k.Id" method="post" class="d-inline">
+                            <button class="btn btn-sm btn-outline-primary">@(k.Rol == "Admin" ? "Kullanıcı Yap" : "Admin Yap")</button>
+                        </form>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table></div>

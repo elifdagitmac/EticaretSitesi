@@ -1,0 +1,176 @@
+/* ===== TeknoMarket tema ===== */
+:root {
+    --ana: #4f46e5;
+    --ana-koyu: #3730a3;
+    --vurgu: #06b6d4;
+    --zemin: #f5f7fb;
+    --kart: #ffffff;
+    --yazi: #1e293b;
+    --soluk: #64748b;
+    --kenar: #e2e8f0;
+}
+
+body {
+    font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    background: var(--zemin);
+    color: var(--yazi);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main { flex: 1; }
+
+/* ---------- Üst menü ---------- */
+.tm-navbar {
+    background: #0f172a;
+    box-shadow: 0 2px 12px rgba(15, 23, 42, .25);
+}
+.tm-logo {
+    font-weight: 800;
+    font-size: 1.4rem;
+    letter-spacing: -.5px;
+    background: linear-gradient(90deg, #818cf8, var(--vurgu));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent !important;
+}
+.tm-navbar .nav-link { color: #cbd5e1; border-radius: 8px; padding: .45rem .8rem !important; }
+.tm-navbar .nav-link:hover { color: #fff; background: rgba(255,255,255,.08); }
+.tm-navbar .nav-link.admin { color: #fbbf24; }
+.tm-kullanici {
+    color: #e2e8f0;
+    background: rgba(255,255,255,.08);
+    border-radius: 999px;
+    padding: .3rem .9rem;
+    font-size: .9rem;
+}
+
+/* ---------- Butonlar ---------- */
+.btn { border-radius: 10px; font-weight: 500; }
+.btn-primary { background: var(--ana); border-color: var(--ana); }
+.btn-primary:hover { background: var(--ana-koyu); border-color: var(--ana-koyu); }
+.btn-gradient {
+    background: linear-gradient(90deg, var(--ana), var(--vurgu));
+    color: #fff;
+    border: none;
+}
+.btn-gradient:hover { color: #fff; filter: brightness(1.08); }
+
+/* ---------- Hero ---------- */
+.tm-hero {
+    background: linear-gradient(135deg, #312e81 0%, var(--ana) 50%, var(--vurgu) 100%);
+    color: #fff;
+    border-radius: 24px;
+    padding: 3.5rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(79, 70, 229, .25);
+}
+.tm-hero::after {
+    content: "";
+    position: absolute;
+    right: -80px;
+    top: -80px;
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.08);
+}
+.tm-hero h1 { font-weight: 800; font-size: 2.6rem; letter-spacing: -1px; }
+.tm-hero p { color: rgba(255,255,255,.85); font-size: 1.1rem; max-width: 520px; }
+.tm-arama {
+    background: #fff;
+    border-radius: 14px;
+    padding: .35rem;
+    max-width: 560px;
+    position: relative;
+    z-index: 1;
+}
+.tm-arama input { border: none; box-shadow: none !important; }
+
+.tm-ozellik { color: rgba(255,255,255,.9); font-size: .95rem; }
+.tm-ozellik i { margin-right: .35rem; }
+
+/* ---------- Ürün kartları ---------- */
+.tm-kart {
+    background: var(--kart);
+    border: 1px solid var(--kenar);
+    border-radius: 18px;
+    overflow: hidden;
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+.tm-kart:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 30px rgba(15, 23, 42, .10);
+}
+.tm-kart-resim {
+    height: 190px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #eef2ff, #ecfeff);
+}
+.tm-kart-resim img { width: 100%; height: 100%; object-fit: cover; }
+.tm-kart-resim i { font-size: 3.5rem; color: var(--ana); opacity: .55; }
+.tm-fiyat { font-size: 1.35rem; font-weight: 700; color: var(--ana); }
+.tm-stok { font-size: .8rem; }
+
+/* ---------- Genel kutular ---------- */
+.tm-kutu {
+    background: var(--kart);
+    border: 1px solid var(--kenar);
+    border-radius: 18px;
+    padding: 1.75rem;
+    box-shadow: 0 4px 16px rgba(15, 23, 42, .04);
+}
+.tm-baslik { font-weight: 700; letter-spacing: -.5px; }
+
+.table { background: var(--kart); border-radius: 14px; overflow: hidden; }
+.table thead th {
+    background: #f1f5f9;
+    color: var(--soluk);
+    font-size: .8rem;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    border-bottom: none;
+}
+
+.form-control, .form-select { border-radius: 10px; padding: .6rem .85rem; }
+.form-control:focus { border-color: var(--ana); box-shadow: 0 0 0 .2rem rgba(79,70,229,.15); }
+
+.alert { border-radius: 12px; border: none; }
+.card { border-radius: 16px; border-color: var(--kenar); }
+
+/* ---------- Giriş / kayıt ---------- */
+.tm-auth {
+    max-width: 440px;
+    margin: 2rem auto;
+}
+.tm-auth .ikon {
+    width: 56px; height: 56px;
+    border-radius: 16px;
+    display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(135deg, var(--ana), var(--vurgu));
+    color: #fff; font-size: 1.6rem;
+    margin-bottom: 1rem;
+}
+
+/* ---------- Alt bilgi ---------- */
+.tm-footer {
+    background: #0f172a;
+    color: #94a3b8;
+    padding: 1.5rem 0;
+    margin-top: 3rem;
+    font-size: .9rem;
+}
+
+/* ---------- Mobil ---------- */
+@media (max-width: 576px) {
+    .tm-hero { padding: 2.25rem 1.5rem; border-radius: 18px; }
+    .tm-hero h1 { font-size: 1.9rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .tm-kart, .tm-kart:hover { transition: none; transform: none; }
+}
